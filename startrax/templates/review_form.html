@@ -1,0 +1,7 @@
+<h1>{% if object %}Edit{% else %}New{% endif %} Review</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'review_list' %}">Cancel</a>

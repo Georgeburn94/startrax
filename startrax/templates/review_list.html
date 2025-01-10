@@ -1,0 +1,9 @@
+<h1>Review List</h1>
+<a href="{% url 'review_create' %}">Add Review</a>
+<ul>
+    {% for review in object_list %}
+        <li>
+            <a href="{% url 'review_detail' review.pk %}">{{ review.album.name }} - {{ review.star_rating }} stars</a>
+        </li>
+    {% endfor %}
+</ul>

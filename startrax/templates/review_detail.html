@@ -1,0 +1,5 @@
+<h1>{{ object.album.name }} - {{ object.star_rating }} stars</h1>
+<p>{{ object.note }}</p>
+<a href="{% url 'review_update' object.pk %}">Edit</a>
+<a href="{% url 'review_delete' object.pk %}">Delete</a>
+<a href="{% url 'review_list' %}">Back to list</a>
