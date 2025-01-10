@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Review  
+from .models import Review, Album  
 from .forms import ReviewForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
@@ -35,6 +35,11 @@ class ReviewListView(ListView):
     template_name = 'review_list.html'
     context_object_name = 'user_reviews'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['albums'] = Album.objects.all()
+        return context
+
     def get_queryset(self):
         if self.request.user.is_authenticated:
             return Review.objects.filter(user=self.request.user)
@@ -46,7 +51,7 @@ class ReviewDetailView(DetailView):
 
 class ReviewCreateView(CreateView):
     model = Review
-    form_class = ReviewForm
+    fields = ['album', 'star_rating', 'note']
     template_name = 'review_form.html'
     success_url = reverse_lazy('review_list')
 
@@ -64,3 +69,14 @@ class ReviewDeleteView(DeleteView):
     model = Review
     template_name = 'review_confirm_delete.html'
     success_url = reverse_lazy('review_list')
+
+class AlbumCreateView(CreateView):
+    model = Album
+    fields = ['name', 'year', 'artist']
+    template_name = 'album_form.html'
+    success_url = reverse_lazy('review_list')
+
+class AlbumListView(ListView):
+    model = Album
+    template_name = 'album_list.html'
+    context_object_name = 'albums'

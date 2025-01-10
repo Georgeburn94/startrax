@@ -4,6 +4,7 @@
 
 <h1>Welcome back, {{ user.username }}</h1>
 <h2>Your Reviews</h2>
+<a href="{% url 'review_create' %}" class="btn btn-primary">Create Review</a>
 {% if user_reviews %}
     <ul>
         {% for review in user_reviews %}
@@ -20,15 +21,13 @@
     <p>You haven't written any reviews yet.</p>
 {% endif %}
 
-{% endblock %}
-
-
-<!-- <h1>Review List</h1>
-<a href="{% url 'review_create' %}">Add Review</a>
+<h2>Your Albums</h2>
+<a href="{% url 'album_create' %}" class="btn btn-primary">Create Album</a>
 <ul>
-    {% for review in object_list %}
+    {% for album in albums %}
         <li>
-            <a href="{% url 'review_detail' review.pk %}">{{ review.album.name }} - {{ review.star_rating }} stars</a>
+            <strong>{{ album.name }}</strong> by {{ album.artist }} ({{ album.year }})
         </li>
     {% endfor %}
 </ul>
+{% endblock %}
