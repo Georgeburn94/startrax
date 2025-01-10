@@ -8,9 +8,9 @@
 <body>
     <h1>Welcome, {{ user.username }}</h1>
     <h2>Your Reviews</h2>
-    {% if reviews %}
+    {% if user_reviews %}
         <ul>
-            {% for review in reviews %}
+            {% for review in user_reviews %}
                 <li>
                     <strong>{{ review.album.name }}</strong> by {{ review.album.artist }}<br>
                     Rating: {{ review.star_rating }}/5<br>

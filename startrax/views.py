@@ -7,8 +7,11 @@ from .forms import ReviewForm
 
 # Create your views here.
 def home_page_view(request):
-    user_reviews = Review.objects.filter(user=request.user)  # Filter reviews by logged-in user
-    return render(request, 'homepage.html', {'reviews': user_reviews})
+    if request.user.is_authenticated:
+        user_reviews = Review.objects.filter(user=request.user)  # Filter reviews by logged-in user
+    else:
+        user_reviews = None
+    return render(request, 'homepage.html', {'user_reviews': user_reviews})
 
 class ReviewListView(ListView):
     model = Review
