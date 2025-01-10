@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Reviews</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}</h1>
+    <h2>Your Reviews</h2>
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    <strong>{{ review.album.name }}</strong> by {{ review.album.artist }}<br>
+                    Rating: {{ review.star_rating }}/5<br>
+                    {% if review.note %}
+                        Note: {{ review.note }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't written any reviews yet.</p>
+    {% endif %}
+</body>
+</html>
