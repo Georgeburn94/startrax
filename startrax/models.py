@@ -10,6 +10,8 @@ class Album(models.Model):
         validators=[MaxValueValidator(date.today().year)]  # Ensure year is not in the future
     )
     artist = models.CharField(max_length=100)  # Name of the artist
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="albums")  # FK to User
+
 
     def __str__(self):
         return self.name

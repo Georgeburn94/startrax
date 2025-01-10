@@ -38,6 +38,10 @@ class ReviewListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['albums'] = Album.objects.all()
+        if self.request.user.is_authenticated:
+            context['albums'] = Album.objects.filter(user=self.request.user)
+        else:
+            context['albums'] = Album.objects.none()
         return context
 
     def get_queryset(self):
@@ -75,6 +79,10 @@ class AlbumCreateView(CreateView):
     fields = ['name', 'year', 'artist']
     template_name = 'album_form.html'
     success_url = reverse_lazy('review_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class AlbumListView(ListView):
     model = Album
