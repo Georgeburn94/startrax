@@ -11,11 +11,17 @@ def home_page_view(request):
         user_reviews = Review.objects.filter(user=request.user)  # Filter reviews by logged-in user
     else:
         user_reviews = None
-    return render(request, 'homepage.html', {'user_reviews': user_reviews})
+    return render(request, 'base.html', {'user_reviews': user_reviews})
 
 class ReviewListView(ListView):
     model = Review
     template_name = 'review_list.html'
+    context_object_name = 'user_reviews'
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Review.objects.filter(user=self.request.user)
+        return Review.objects.none()
 
 class ReviewDetailView(DetailView):
     model = Review
