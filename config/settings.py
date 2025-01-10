@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost']
 
-
+LOGIN_REDIRECT_URL = '/'
 
 # Application definition
 

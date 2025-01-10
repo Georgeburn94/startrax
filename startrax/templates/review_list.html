@@ -2,7 +2,28 @@
 {% block title %}Review List{% endblock %}
 {% block content %}
 
-<h1>Review List</h1>
+<h1>Welcome back, {{ user.username }}</h1>
+<h2>Your Reviews</h2>
+{% if user_reviews %}
+    <ul>
+        {% for review in user_reviews %}
+            <li>
+                <strong><a href="{% url 'review_detail' review.pk %}">{{ review.album.name }}</a></strong> by {{ review.album.artist }}<br>
+                Rating: {{ review.star_rating }}/5<br>
+                {% if review.note %}
+                    Note: {{ review.note }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't written any reviews yet.</p>
+{% endif %}
+
+{% endblock %}
+
+
+<!-- <h1>Review List</h1>
 <a href="{% url 'review_create' %}">Add Review</a>
 <ul>
     {% for review in object_list %}
@@ -11,4 +32,3 @@
         </li>
     {% endfor %}
 </ul>
-{% endblock %}
