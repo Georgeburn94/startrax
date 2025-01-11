@@ -5,6 +5,7 @@ from .models import Review, Album
 from .forms import ReviewForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
@@ -52,7 +53,7 @@ class ReviewDetailView(DetailView):
     model = Review
     template_name = 'review_detail.html'
 
-class ReviewCreateView(CreateView):
+class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     fields = ['album', 'star_rating', 'note']
     template_name = 'review_form.html'
@@ -73,7 +74,7 @@ class ReviewDeleteView(DeleteView):
     template_name = 'review_confirm_delete.html'
     success_url = reverse_lazy('review_list')
 
-class AlbumCreateView(CreateView):
+class AlbumCreateView(LoginRequiredMixin, CreateView):
     model = Album
     fields = ['name', 'year', 'artist']
     template_name = 'album_form.html'
@@ -88,7 +89,7 @@ class AlbumListView(ListView):
     template_name = 'album_list.html'
     context_object_name = 'albums'
 
-class AlbumDeleteView(DeleteView):
+class AlbumDeleteView(LoginRequiredMixin, DeleteView):
     model = Album
     template_name = 'album_confirm_delete.html'
     success_url = reverse_lazy('review_list')
