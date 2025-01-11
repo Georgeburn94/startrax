@@ -7,7 +7,7 @@
     {% if user.is_authenticated %}
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center mb-4">Welcome back, {{ user.username }}</h1>
+            <h1 class="text-center mb-4 mt-2">Welcome back, {{ user.username }}</h1>
         </div>
     </div>
 
@@ -38,7 +38,7 @@
             </ul>
         </div>
         {% else %}
-        <p>You haven't written any reviews yet.</p>
+        <p class="text-center mt-4">You haven't written any reviews yet.</p>
     </div>
 
     {% endif %}
@@ -61,12 +61,6 @@
                     <a href="{% url 'album_delete' album.pk %}" class="btn btn-danger btn-sm">Delete</a>
                 </div>
             </div>
-
-
-            <!-- <li>
-                <strong>{{ album.name }}</strong> by {{ album.artist }} ({{ album.year }})
-                <a href="{% url 'album_delete' album.pk %}" class="btn btn-danger btn-sm">Delete</a>
-            </li> -->
             {% endfor %}
         </ul>
     </div>

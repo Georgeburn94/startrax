@@ -6,6 +6,8 @@ from .forms import ReviewForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 # Create your views here.
@@ -69,10 +71,15 @@ class ReviewUpdateView(UpdateView):
     template_name = 'review_form.html'
     success_url = reverse_lazy('review_list')
 
-class ReviewDeleteView(DeleteView):
+class ReviewDeleteView(SuccessMessageMixin, DeleteView):
     model = Review
     template_name = 'review_confirm_delete.html'
     success_url = reverse_lazy('review_list')
+    success_message = "Your review has been deleted."
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super().delete(request, *args, **kwargs)
 
 class AlbumCreateView(LoginRequiredMixin, CreateView):
     model = Album
