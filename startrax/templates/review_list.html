@@ -7,7 +7,7 @@
     {% if user.is_authenticated %}
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center">Welcome back, {{ user.username }}</h1>
+            <h1 class="text-center mb-4">Welcome back, {{ user.username }}</h1>
         </div>
     </div>
 
@@ -15,20 +15,25 @@
     <!-- Display user reviews -->
     <div class="row">
         <div class="col-lg-6">
-            <h2>Your Reviews</h2>
-            <a href="{% url 'review_create' %}" class="btn btn-primary">Create Review</a>
+            <h2 class="text-center">Your Reviews</h2>
+            <div class="d-flex justify-content-center mb-4"><a href="{% url 'review_create' %}"
+                    class="btn btn-primary">Create Review</a></div>
             {% if user_reviews %}
             <ul>
                 {% for review in user_reviews %}
-                <li>
-                    <strong><a href="{% url 'review_detail' review.pk %}">{{ review.album.name }}</a></strong> by 
-                    {{ review.album.artist }}<br>
-                    Rating: {{ review.star_rating }}/5<br>
-                    {% if review.note %}
-                    Note: {{ review.note }}
-                    <a href="{% url 'review_delete' review.pk %}" class="btn btn-danger btn-sm">Delete</a>
-                    {% endif %}
-                </li>
+
+                <div class="card my-2 mx-2">
+                    <div class="card-body">
+                        <a href="{% url 'review_detail' review.pk %}">
+                            <h5 class="card-title">{{ review.album.name }}</h4>
+                        </a>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ review.album.artist }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ review.star_rating }}/5</h6>
+                        <p class="card-text">{{ review.note }}</p>
+                        <a href="{% url 'review_delete' review.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </div>
+
                 {% endfor %}
             </ul>
         </div>
@@ -40,14 +45,28 @@
 
     <!-- Display User Albums -->
     <div class="col-lg-6">
-        <h2>Your Albums</h2>
-        <a href="{% url 'album_create' %}" class="btn btn-primary">Create Album</a>
+        <h2 class="text-center">Your Albums</h2>
+        <div class="d-flex justify-content-center mb-4"><a href="{% url 'album_create' %}"
+                class="btn btn-primary">Create
+                Album</a>
+        </div>
         <ul>
             {% for album in albums %}
-            <li>
+
+            <div class="card my-2 mx-2">
+                <div class="card-body">
+                    <h5 class="card-title">{{ album.name }}</h4>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ album.artist }}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ album.year }}</h6>
+                    <a href="{% url 'album_delete' album.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+            </div>
+
+
+            <!-- <li>
                 <strong>{{ album.name }}</strong> by {{ album.artist }} ({{ album.year }})
                 <a href="{% url 'album_delete' album.pk %}" class="btn btn-danger btn-sm">Delete</a>
-            </li>
+            </li> -->
             {% endfor %}
         </ul>
     </div>
