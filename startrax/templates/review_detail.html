@@ -3,11 +3,15 @@
 {% block title %}Review Detail{% endblock %}
 
 {% block content %}
-
-<h1>{{ object.album.name }} - {{ object.star_rating }} stars</h1>
-<p>{{ object.note }}</p>
-<a href="{% url 'review_update' object.pk %}">Edit</a>
-<a href="{% url 'review_delete' object.pk %}">Delete</a>
-<a href="{% url 'review_list' %}">Back to list</a>
-
+<div class="container">
+    <div class="card text-center my-5">
+        <div class="card-body">
+            <h1 class="card-title">{{ object.album.name }} - {{ object.star_rating }} stars</h1>
+            <p class="card-text">{{ object.note }}</p>
+            <a href="{% url 'review_update' object.pk %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'review_delete' object.pk %}" class=" btn btn-danger">Delete</a>
+            <a href="{% url 'review_list' %}" class="btn btn-secondary">Back to list</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

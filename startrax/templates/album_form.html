@@ -3,10 +3,16 @@
 {% block title %}Create Album{% endblock %}
 
 {% block content %}
-<h2>Create Album</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Create Album</button>
-</form>
+<div class="container">
+    <div class="card text-center my-5">
+        <div class="card-body">
+            <h2 class="card-title">Create Album</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Create Album</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
