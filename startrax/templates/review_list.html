@@ -27,6 +27,7 @@
     {% for album in albums %}
         <li>
             <strong>{{ album.name }}</strong> by {{ album.artist }} ({{ album.year }})
+            <a href="{% url 'album_delete' album.pk %}" class="btn btn-danger btn-sm">Delete</a>
         </li>
     {% endfor %}
 </ul>

@@ -37,7 +37,6 @@ class ReviewListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['albums'] = Album.objects.all()
         if self.request.user.is_authenticated:
             context['albums'] = Album.objects.filter(user=self.request.user)
         else:
@@ -88,3 +87,8 @@ class AlbumListView(ListView):
     model = Album
     template_name = 'album_list.html'
     context_object_name = 'albums'
+
+class AlbumDeleteView(DeleteView):
+    model = Album
+    template_name = 'album_confirm_delete.html'
+    success_url = reverse_lazy('review_list')
