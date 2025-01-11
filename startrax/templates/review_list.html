@@ -10,48 +10,58 @@
             <h1 class="text-center">Welcome back, {{ user.username }}</h1>
         </div>
     </div>
+
+
     <!-- Display user reviews -->
-    <h2>Your Reviews</h2>
-    <a href="{% url 'review_create' %}" class="btn btn-primary">Create Review</a>
-    {% if user_reviews %}
-    <ul>
-        {% for review in user_reviews %}
-        <li>
-            <strong><a href="{% url 'review_detail' review.pk %}">{{ review.album.name }}</a></strong> by {{
-            review.album.artist }}<br>
-            Rating: {{ review.star_rating }}/5<br>
-            {% if review.note %}
-            Note: {{ review.note }}
-            <a href="{% url 'review_delete' review.pk %}" class="btn btn-danger btn-sm">Delete</a>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>You haven't written any reviews yet.</p>
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>Your Reviews</h2>
+            <a href="{% url 'review_create' %}" class="btn btn-primary">Create Review</a>
+            {% if user_reviews %}
+            <ul>
+                {% for review in user_reviews %}
+                <li>
+                    <strong><a href="{% url 'review_detail' review.pk %}">{{ review.album.name }}</a></strong> by 
+                    {{ review.album.artist }}<br>
+                    Rating: {{ review.star_rating }}/5<br>
+                    {% if review.note %}
+                    Note: {{ review.note }}
+                    <a href="{% url 'review_delete' review.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <p>You haven't written any reviews yet.</p>
+    </div>
+
     {% endif %}
 
     <!-- Display User Albums -->
-    <h2>Your Albums</h2>
-    <a href="{% url 'album_create' %}" class="btn btn-primary">Create Album</a>
-    <ul>
-        {% for album in albums %}
-        <li>
-            <strong>{{ album.name }}</strong> by {{ album.artist }} ({{ album.year }})
-            <a href="{% url 'album_delete' album.pk %}" class="btn btn-danger btn-sm">Delete</a>
-        </li>
-        {% endfor %}
-    </ul>
-
-    <!-- Anauthenticad User Welcome Message  -->
-    {% else %}
-    <div class="row">
-        <div class="col-12">
-            <h1 class="text-center">Welcome to StarTrax</h1>
-            <h2 class="text-center">Please login or create an account to continue</h2>
-        </div>
+    <div class="col-lg-6">
+        <h2>Your Albums</h2>
+        <a href="{% url 'album_create' %}" class="btn btn-primary">Create Album</a>
+        <ul>
+            {% for album in albums %}
+            <li>
+                <strong>{{ album.name }}</strong> by {{ album.artist }} ({{ album.year }})
+                <a href="{% url 'album_delete' album.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
-    {% endif %}
-
 </div>
+
+<!-- Anauthenticad User Welcome Message  -->
+{% else %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="text-center">Welcome to StarTrax</h1>
+        <h2 class="text-center">Please login or create an account to continue</h2>
+    </div>
+</div>
+</div>
+{% endif %}
+
 {% endblock %}
