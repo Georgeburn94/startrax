@@ -129,3 +129,11 @@ The tests were as follows:
 - navigation links work correctly
 
 ![screenshot of test results](images/pytest.jpg)
+
+## Deployment
+Using manual deployment from a GitHub branch, I deployed using Heroku.
+
+See deployed URL below;
+https://startrax-draft-5e0a1c66b441.herokuapp.com/
+
+![heroku screenshot](images/heroku.jpg)
