@@ -63,6 +63,7 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        messages.success(self.request, 'Review created successfully.')
         return super().form_valid(form)
 
 class ReviewUpdateView(UpdateView):
@@ -71,11 +72,19 @@ class ReviewUpdateView(UpdateView):
     template_name = 'review_form.html'
     success_url = reverse_lazy('review_list')
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Review updated successfully.')
+        return super().form_valid(form)
+
 class ReviewDeleteView(SuccessMessageMixin, DeleteView):
     model = Review
     template_name = 'review_confirm_delete.html'
     success_url = reverse_lazy('review_list')
     success_message = "Your review has been deleted."
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Review deleted successfully.')
+        return super().delete(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
@@ -89,6 +98,7 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        messages.success(self.request, 'Album created successfully.')
         return super().form_valid(form)
 
 class AlbumListView(ListView):
@@ -100,3 +110,7 @@ class AlbumDeleteView(LoginRequiredMixin, DeleteView):
     model = Album
     template_name = 'album_confirm_delete.html'
     success_url = reverse_lazy('review_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Album deleted successfully.')
+        return super().delete(request, *args, **kwargs)
