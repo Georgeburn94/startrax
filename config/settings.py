@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','https://startrax-draft.herokuapp.com/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','https://startrax-draft-5e0a1c66b441.herokuapp.com/']
 
 LOGIN_REDIRECT_URL = '/'
 
