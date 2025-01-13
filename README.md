@@ -115,3 +115,17 @@ Add data to user library from Spotify user library
 ## Entity Relationship Diagram
 See below for ERD. Albums are tied to reviews, which are tied to users. I chose to use Django's inbuilt user system for this project
 ![entity relationship diagram](images/erd.png)
+
+## Testing
+Using GitHub Copilot I generate automated tests for the website's main features. These tests were implemented using the pytest framework.
+
+The tests were as follows:
+- a user can create a review
+- a review can be updated
+- a review can be deleted
+- an album can be created
+- an album can be deleted
+- homepage welcomes client
+- navigation links work correctly
+
+![screenshot of test results](images/pytest.jpg)
