@@ -50,6 +50,7 @@
                 class="btn btn-primary">Create
                 Album</a>
         </div>
+        {% if albums %}
         <ul>
             {% for album in albums %}
 
@@ -64,7 +65,11 @@
             {% endfor %}
         </ul>
     </div>
+    {% else %}
+    <p class="text-center mt-4">You haven't added any albums yet.</p>
 </div>
+
+{% endif %}
 
 <!-- Anauthenticad User Welcome Message  -->
 {% else %}

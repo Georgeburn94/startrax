@@ -137,3 +137,24 @@ See deployed URL below;
 https://startrax-draft-5e0a1c66b441.herokuapp.com/
 
 ![heroku screenshot](images/heroku.jpg)
+
+# Reflection on use of AI in the project
+Throughout the development of this project, AI played a crucial role in debugging and adding new features, especially in areas where I was unfamiliar with the necessary code. The AI significantly reduced the time I spent debugging by providing immediate solutions, which allowed me to focus more on the overall development process.
+
+## Where the AI was useful
+The AI was most useful in the debugging part of development. Django offered detailed traceback solutions - and copy and pasting them into Copilot was able to resolve these issues quickly and painlessly. 
+
+It was also useful when dealing with features I hadn't encountered before in the LMS. For example the notification that comes with changes to data. I did not know how to implement messages this, but by using a multi-step reverse prompt I was able to specificy my requirements and the feature worked in the first instance. Being able to include these messages improved the User Experience.
+
+## AI in testing
+This was an example of where AI helped me to implement something I would not have otherwise been able to accomplish. Using a multi-step prompt, I asked Copilot to create me automated tests for all of the features existing in my project. The tests ran without issue. To learn, implement and debug the testing process myself would have taken days, but with Copilot assistance it was completed in about 25 minutes.
+
+## Issues
+While the AI's code suggestions were often helpful, there were instances where its solutions were overly complex. This highlighted the importance of understanding the code myself. Not blindly following code I didn't understand and then being stuck when it breaks.
+
+One example of this was when I was creating the User Accounts section. Initially, the AI suggested using a 3rd party dependency, which I didn't fully understand. I was then able to specify that Django's built in account system to be used, creating a much simpler solution.
+
+
+
+I saw the AI as a co-developer, contributing valuable insights and code snippets, but I maintained control over the decision-making process. Overall, the collaboration with AI resulted in a much faster development cycle, helping me achieve milestones more efficiently.
+
