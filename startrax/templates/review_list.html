@@ -19,6 +19,8 @@
             <div class="d-flex justify-content-center mb-4">
                 <a href="{% url 'review_create' %}" class="btn btn-primary">Create Review</a>
             </div>
+            {% else %}
+            <p class="text-center text-danger">You do not have permission to create reviews.</p>
             {% endif %}
             {% if user_reviews %}
             <ul>
@@ -50,6 +52,8 @@
             <div class="d-flex justify-content-center mb-4">
                 <a href="{% url 'album_create' %}" class="btn btn-primary">Create Album</a>
             </div>
+            {% else %}
+            <p class="text-center text-danger">You do not have permission to create albums.</p>
             {% endif %}
             {% if albums %}
             <ul>
