@@ -11,75 +11,74 @@
         </div>
     </div>
 
-
     <!-- Display user reviews -->
     <div class="row">
         <div class="col-lg-6">
             <h2 class="text-center">Your Reviews</h2>
-            <div class="d-flex justify-content-center mb-4"><a href="{% url 'review_create' %}"
-                    class="btn btn-primary">Create Review</a></div>
+            {% if perms.startrax.add_review %}
+            <div class="d-flex justify-content-center mb-4">
+                <a href="{% url 'review_create' %}" class="btn btn-primary">Create Review</a>
+            </div>
+            {% endif %}
             {% if user_reviews %}
             <ul>
                 {% for review in user_reviews %}
-
                 <div class="card my-2 mx-2">
                     <div class="card-body">
                         <a href="{% url 'review_detail' review.pk %}">
-                            <h5 class="card-title">{{ review.album.name }}</h4>
+                            <h5 class="card-title">{{ review.album.name }}</h5>
                         </a>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ review.album.artist }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ review.album.artist }}</h6>
                         <h6 class="card-subtitle mb-2 text-body-secondary">{{ review.star_rating }}/5</h6>
                         <p class="card-text">{{ review.note }}</p>
+                        {% if perms.startrax.delete_review %}
                         <a href="{% url 'review_delete' review.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                        {% endif %}
                     </div>
                 </div>
-
                 {% endfor %}
             </ul>
+            {% else %}
+            <p class="text-center mt-4">You haven't written any reviews yet.</p>
+            {% endif %}
         </div>
-        {% else %}
-        <p class="text-center mt-4">You haven't written any reviews yet.</p>
-    </div>
 
-    {% endif %}
-
-    <!-- Display User Albums -->
-    <div class="col-lg-6">
-        <h2 class="text-center">Your Albums</h2>
-        <div class="d-flex justify-content-center mb-4"><a href="{% url 'album_create' %}"
-                class="btn btn-primary">Create
-                Album</a>
-        </div>
-        {% if albums %}
-        <ul>
-            {% for album in albums %}
-
-            <div class="card my-2 mx-2">
-                <div class="card-body">
-                    <h5 class="card-title">{{ album.name }}</h4>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ album.artist }}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ album.year }}</h6>
-                    <a href="{% url 'album_delete' album.pk %}" class="btn btn-danger btn-sm">Delete</a>
-                </div>
+        <!-- Display user albums -->
+        <div class="col-lg-6">
+            <h2 class="text-center">Your Albums</h2>
+            {% if perms.startrax.add_album %}
+            <div class="d-flex justify-content-center mb-4">
+                <a href="{% url 'album_create' %}" class="btn btn-primary">Create Album</a>
             </div>
-            {% endfor %}
-        </ul>
+            {% endif %}
+            {% if albums %}
+            <ul>
+                {% for album in albums %}
+                <div class="card my-2 mx-2">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ album.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ album.artist }}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ album.year }}</h6>
+                        {% if perms.startrax.delete_album %}
+                        <a href="{% url 'album_delete' album.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-center mt-4">You haven't added any albums yet.</p>
+            {% endif %}
+        </div>
     </div>
     {% else %}
-    <p class="text-center mt-4">You haven't added any albums yet.</p>
-</div>
-
-{% endif %}
-
-<!-- Anauthenticad User Welcome Message  -->
-{% else %}
-<div class="row">
-    <div class="col-12">
-        <h1 class="text-center">Welcome to StarTrax</h1>
-        <h2 class="text-center">Please login or create an account to continue</h2>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Welcome to StarTrax</h1>
+            <h2 class="text-center">Please login or create an account to continue</h2>
+        </div>
     </div>
+    {% endif %}
 </div>
-</div>
-{% endif %}
 
 {% endblock %}

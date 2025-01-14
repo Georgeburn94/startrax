@@ -5,7 +5,7 @@ from .models import Review, Album
 from .forms import ReviewForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -55,11 +55,12 @@ class ReviewDetailView(DetailView):
     model = Review
     template_name = 'review_detail.html'
 
-class ReviewCreateView(LoginRequiredMixin, CreateView):
+class ReviewCreateView(PermissionRequiredMixin, CreateView):
     model = Review
     fields = ['album', 'star_rating', 'note']
     template_name = 'review_form.html'
     success_url = reverse_lazy('review_list')
+    permission_required = 'startrax.add_review'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -76,25 +77,22 @@ class ReviewUpdateView(UpdateView):
         messages.success(self.request, 'Review updated successfully.')
         return super().form_valid(form)
 
-class ReviewDeleteView(SuccessMessageMixin, DeleteView):
+class ReviewDeleteView(PermissionRequiredMixin, DeleteView):
     model = Review
     template_name = 'review_confirm_delete.html'
     success_url = reverse_lazy('review_list')
-    success_message = "Your review has been deleted."
+    permission_required = 'startrax.delete_review'
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, 'Review deleted successfully.')
         return super().delete(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, self.success_message)
-        return super().delete(request, *args, **kwargs)
-
-class AlbumCreateView(LoginRequiredMixin, CreateView):
+class AlbumCreateView(PermissionRequiredMixin, CreateView):
     model = Album
     fields = ['name', 'year', 'artist']
     template_name = 'album_form.html'
     success_url = reverse_lazy('review_list')
+    permission_required = 'startrax.add_album'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -106,10 +104,11 @@ class AlbumListView(ListView):
     template_name = 'album_list.html'
     context_object_name = 'albums'
 
-class AlbumDeleteView(LoginRequiredMixin, DeleteView):
+class AlbumDeleteView(PermissionRequiredMixin, DeleteView):
     model = Album
     template_name = 'album_confirm_delete.html'
     success_url = reverse_lazy('review_list')
+    permission_required = 'startrax.delete_album'
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, 'Album deleted successfully.')
