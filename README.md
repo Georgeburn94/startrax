@@ -138,6 +138,22 @@ https://startrax-draft-5e0a1c66b441.herokuapp.com/
 
 ![heroku screenshot](images/heroku.jpg)
 
+# Role Based Login
+I created role based login for authorised and unauthorised users. Users are not permitted to create/delete albums or reviews, whereas Admin users are.
+
+Roles are assigned using custom python code. assign_roles.py and create_roles.py contain these commands.
+
+![screeshot of custom python files](images/commands.jpg)
+
+See below for screenshots
+## Authorised User
+![screenshot of admin user](images/authorised_user.jpg)
+Admins have the option to create albums or reviews
+
+## Unauthorised User
+![screenshot of user](images/unauthorised_user.jpg)
+Unauthorised users cannot create albums or reviews
+
 # Reflection on use of AI in the project
 Throughout the development of this project, AI played a crucial role in debugging and adding new features, especially in areas where I was unfamiliar with the necessary code. The AI significantly reduced the time I spent debugging by providing immediate solutions, which allowed me to focus more on the overall development process.
 
@@ -153,8 +169,6 @@ This was an example of where AI helped me to implement something I would not hav
 While the AI's code suggestions were often helpful, there were instances where its solutions were overly complex. This highlighted the importance of understanding the code myself. Not blindly following code I didn't understand and then being stuck when it breaks.
 
 One example of this was when I was creating the User Accounts section. Initially, the AI suggested using a 3rd party dependency, which I didn't fully understand. I was then able to specify that Django's built in account system to be used, creating a much simpler solution.
-
-
 
 I saw the AI as a co-developer, contributing valuable insights and code snippets, but I maintained control over the decision-making process. Overall, the collaboration with AI resulted in a much faster development cycle, helping me achieve milestones more efficiently.
 
