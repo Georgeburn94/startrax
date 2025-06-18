@@ -138,6 +138,128 @@ https://startrax-draft-5e0a1c66b441.herokuapp.com/
 
 ![heroku screenshot](images/heroku.jpg)
 
+## Deployment
+
+This project is deployed on Heroku, with the database hosted on Neon Tech PostgreSQL. Below are detailed instructions for both setting up the project locally and deploying it to Heroku.
+
+### Local Deployment
+
+#### Prerequisites
+- Python 3.8+
+- pip (Python package installer)
+- Git
+
+#### Steps to Clone and Run Locally
+
+1. **Clone the repository**
+Use the below commands:
+
+git clone https://github.com/georgeburn94/startrax.git
+
+cd startrax
+2. **Create a virtual environment**
+python -m venv venv
+
+3. **Activate the virtual environment**
+- Windows: `venv\Scripts\activate`
+- Mac/Linux: `source venv/bin/activate`
+
+4. **Install required packages**
+pip install -r requirements.txt
+
+5. **Create an env.py file**
+Create a file named `env.py` in the root directory with the following content:
+
+import os
+
+os.environ.setdefault('SECRET_KEY', 'your-secret-key') 
+os.environ.setdefault('DATABASE_URL', 'your-database-url')
+os.environ.setdefault('DEBUG', 'True')  # Set to 'False' in production
+
+6. **Create an env.py file**
+python manage.py migrate
+
+7. **Create a superuser**
+python manage.py createsuperuser
+
+8. **Run the development server**
+python manage.py runserver
+
+9. **Access the site** 
+Open your browser and go to http://127.0.0.1:8000/
+
+#### Steps for Heroku Deployment
+Create a new Heroku application
+
+##### Logging into Heroku
+Log in to Heroku Dashboard
+Click "New" > "Create new app"
+Enter a unique app name and select your region
+Click "Create app"
+Set up database
+
+##### Creating a database
+Create a PostgreSQL database on Neon Tech or similar service
+Note the connection URL for the next steps
+Configure environment variables
+
+##### Setting config Vars
+In your Heroku app dashboard, go to "Settings" tab
+Click "Reveal Config Vars"
+Add the following variables:
+SECRET_KEY: Your Django secret key
+DATABASE_URL: Your PostgreSQL connection URL
+DEBUG: False
+ALLOWED_HOSTS: your-app-name.herokuapp.com
+Prepare your application
+
+##### Required files
+Ensure your project has these files in the root directory:
+requirements.txt: Lists all dependencies
+Procfile: Contains web: gunicorn config.wsgi:application
+runtime.txt: Specifies Python version (e.g., python-3.8.15)
+Deploy your application
+
+##### Deploying in Heroku from Github
+In your Heroku dashboard, go to the "Deploy" tab
+Under "Deployment method", select "GitHub"
+Connect your GitHub account if not already connected
+Search for your repository and click "Connect"
+Scroll down to "Manual deploy" section
+Select the branch to deploy (usually main)
+Click "Deploy Branch"
+Wait for the build process to complete
+Run migrations on Heroku
+
+##### Creating a superuser
+In the Heroku dashboard, click on "More" > "Run console"
+Run python manage.py migrate
+Create a superuser
+
+In the Heroku console, run python manage.py createsuperuser
+Follow the prompts to create an admin user
+View your application
+
+##### Viewing deployed site
+Click on "Open app" button in the top right of the Heroku dashboard
+Your app should now be live at https://<your chosen name>.herokuapp.com
+Important Files
+Procfile: Tells Heroku how to run the application
+requirements.txt: Lists all Python dependencies
+runtime.txt: Specifies the Python version for Heroku
+env.py: Contains environment variables (local development only, not committed to version control)
+Database Management
+The project uses PostgreSQL for the database:
+
+For local development, you can use SQLite or a local PostgreSQL instance
+For production, StarTrax uses Neon Tech PostgreSQL
+Environment Variables Security
+For security, ensure that:
+
+env.py is listed in your .gitignore file to prevent sensitive information from being committed
+All sensitive credentials are stored in Heroku Config Vars for the deployed version
+
+
 # Role Based Login
 I created role based login for authorised and unauthorised users. Users are not permitted to create/delete albums or reviews, whereas Admin users are.
 
